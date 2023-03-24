@@ -5,6 +5,7 @@ import subprocess
 
 class Test(MRJob):
     def steps(self):
+        print("start steps")
         return [
             MRStep(mapper=self.mapper_get_ratings,
                    reducer=self.reducer_count_ratings)
@@ -21,12 +22,15 @@ class Test(MRJob):
         yield line+'\t'+"ip :", ip_address
 
     def configure_args(self):
+        print("start configure_args")
+        print(super(Test, self).configure_args())
         super(Test, self).configure_args()
         self.add_file_arg('--input-file', help='path to input file')
 
     def mapper_init(self):
+        print("start mapper_init")
         input_file = self.options.input_file
-        
+        print(input_file)
         if input_file.startswith('hdfs://'):
             with subprocess.Popen(["hadoop", "fs", "-cat", input_file.split("hdfs://")[1]], stdout=subprocess.PIPE) as proc:
                 self.file = proc.stdout
@@ -37,4 +41,5 @@ class Test(MRJob):
         self.file.close()
 
 if __name__ == '__main__':
+    print("start")
     Test.run()
