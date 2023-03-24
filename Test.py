@@ -20,4 +20,4 @@ class Test(MRJob):
         yield line+'\t'+"ip :", ip_address
 
 if __name__ == '__main__':
-    MostPopularMovie.run()
+    Test.run()
