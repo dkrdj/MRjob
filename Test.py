@@ -2,7 +2,7 @@ from mrjob.job import MRJob
 from mrjob.step import MRStep
 import socket
 
-class MostPopularMovie(MRJob):
+class Test(MRJob):
     def steps(self):
         return [
             MRStep(mapper=self.mapper_get_ratings,
