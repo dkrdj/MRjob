@@ -26,8 +26,9 @@ class Test(MRJob):
 
     def mapper_init(self):
         input_file = self.options.input_file
+        
         if input_file.startswith('hdfs://'):
-            with subprocess.Popen(["hadoop", "fs", "-cat", input_file], stdout=subprocess.PIPE) as proc:
+            with subprocess.Popen(["hadoop", "fs", "-cat", input_file.split("hdfs://")[1]], stdout=subprocess.PIPE) as proc:
                 self.file = proc.stdout
         else:
             self.file = open(input_file, 'r')
